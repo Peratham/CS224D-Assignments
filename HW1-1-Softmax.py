@@ -20,9 +20,10 @@ def softmax(x):
     written assignment!
     """
 
-    ### YOUR CODE HERE
-    raise NotImplementedError
-    ### END YOUR CODE
+    ### Just a simple one liner that takes each element in the x vector
+    ### and computes e to the power of that element, all over the sum
+    ### of all of the exponentials
+    x = np.exp(x)/np.sum(np.exp(x))
     
     return x
 
