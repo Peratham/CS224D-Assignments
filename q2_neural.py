@@ -26,11 +26,12 @@ def forward_backward_prop(data, labels, params, dimensions):
     b2 = np.reshape(params[ofs:ofs + Dy], (1, Dy))
 
     ### YOUR CODE HERE: forward propagation
-    raise NotImplementedError
+    h = sigmoid(np.dot(data,W1) + b1)
+    yHat = softmax(np.dot(h,W2) + b2)
     ### END YOUR CODE
     
     ### YOUR CODE HERE: backward propagation
-    raise NotImplementedError
+    cross_entropy_loss = np.sum(-np.log(yHat))
     ### END YOUR CODE
     
     ### Stack gradients (do not modify)
