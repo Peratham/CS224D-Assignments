@@ -27,11 +27,26 @@ def forward_backward_prop(data, labels, params, dimensions):
 
     ### YOUR CODE HERE: forward propagation
     h = sigmoid(np.dot(data,W1) + b1)
-    yHat = softmax(np.dot(h,W2) + b2)
+    yHat = softmax(np.dot(h,W2) + b2) #This value is our probability
     ### END YOUR CODE
     
     ### YOUR CODE HERE: backward propagation
-    cross_entropy_loss = np.sum(-np.log(yHat))
+
+    #This loss wants to maximize the probability of the 
+    #correct class by minimizing its negative 
+    #log probability. 
+    cross_entropy_loss = -np.sum(np.log(yHat) * labels)
+    cost = cross_entropy_loss
+
+    #Because we know the labels are one hot vectors, the only term left is 
+    #the negative probability of the correct class. 
+
+    delta = yHat - labels
+    gradW2 = h.T.dot(delta)
+    gradb2 = np.sum(delta, axis = 0)
+    delta = delta.dot(W2.T) * sigmoid_grad(h)
+    gradW1 = data.T.dot(delta)
+    gradb1 = np.sum(delta, axis = 0)
     ### END YOUR CODE
     
     ### Stack gradients (do not modify)
